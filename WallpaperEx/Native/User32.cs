@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Wallpaper.Native;
+namespace WallpaperEx.Native;
 
 public static class User32
 {
