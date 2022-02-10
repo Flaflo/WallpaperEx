@@ -4,44 +4,50 @@ namespace WallpaperEx.Forms;
 
 public partial class SettingsForm : Form
 {
-    private bool _close;
-
+    private bool _closeApp;
+    
     private List<WallpaperForm>? _forms;
-
-    private IntPtr _worker;
+    private IntPtr _drawingWorker;
 
     public SettingsForm()
     {
         InitializeComponent();
-        InitializeWorker();
+        InitializeDrawingWorker();
     }
 
-    private void InitializeWorker()
+    private void InitializeDrawingWorker()
     {
+        #region Constants
+
+        const string wndProgman = "Progman";
+        const string clsShellDefView = "SHELLDLL_DefView";
+        const string clsWorkerW = "WorkerW";
+        
+        #endregion
+
         User32.SendMessageTimeout(
-            User32.FindWindow("Progman", null),
-            0x052C,
+            User32.FindWindow(wndProgman, null),
+            User32.WM_SPAWN_WORKER,
             IntPtr.Zero,
             IntPtr.Zero,
             SendMessageTimeoutFlags.SMTO_NORMAL,
             1000,
             out _);
 
-        User32.EnumWindows((topHandle, _) =>
+        User32.EnumWindows((handle, _) =>
         {
-            var pointer = User32.FindWindowEx(topHandle,
+            var pointer = User32.FindWindowEx(handle,
                 IntPtr.Zero,
-                "SHELLDLL_DefView",
+                clsShellDefView,
                 IntPtr.Zero);
 
             if (pointer != IntPtr.Zero)
             {
-                _worker = User32.FindWindowEx(
+                _drawingWorker = User32.FindWindowEx(
                     IntPtr.Zero,
-                    topHandle,
-                    "WorkerW",
+                    handle,
+                    clsWorkerW,
                     IntPtr.Zero);
-
             }
 
             return true;
@@ -67,7 +73,7 @@ public partial class SettingsForm : Form
                 it.Show();
 
                 // Attach Form to Wallpaper
-                User32.SetParent(it.Handle, _worker);
+                User32.SetParent(it.Handle, _drawingWorker);
             });
         }
         else
@@ -84,7 +90,7 @@ public partial class SettingsForm : Form
 
     private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        if (_close) return;
+        if (_closeApp) return;
 
         e.Cancel = true;
         MinimizeToTray();
@@ -106,11 +112,11 @@ public partial class SettingsForm : Form
 
     private void itmExit_Click(object sender, EventArgs e)
     {
-        _close = true;
+        _closeApp = true;
         _forms?.ForEach(it => it.Close());
 
         // Restore Wallpaper
-        User32.SetParent(_worker, User32.GetDesktopWindow());
+        User32.SetParent(_drawingWorker, User32.GetDesktopWindow());
 
         Application.Exit();
     }

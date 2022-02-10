@@ -4,7 +4,19 @@ namespace WallpaperEx.Native;
 
 public static class User32
 {
+    #region Constants
+
+    public const int WM_SPAWN_WORKER = 0x052C;
+
+    #endregion
+    
+    #region Delegates
+
     public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+    #endregion
+
+    #region P/Invokes
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -27,7 +39,10 @@ public static class User32
     [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
     public static extern IntPtr GetDesktopWindow();
 
+    #endregion
 }
+
+#region Enums
 
 [Flags]
 public enum SendMessageTimeoutFlags : uint
@@ -38,3 +53,5 @@ public enum SendMessageTimeoutFlags : uint
     SMTO_NOTIMEOUTIFNOTHUNG = 0x8,
     SMTO_ERRORONEXIT = 0x20
 }
+
+#endregion
