@@ -4,7 +4,7 @@ namespace WallpaperEx.Native;
 
 public static class User32
 {
-    public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
+    public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
