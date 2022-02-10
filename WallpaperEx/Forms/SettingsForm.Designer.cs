@@ -36,7 +36,7 @@
             this.itmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnApply = new System.Windows.Forms.Button();
             this.tbUrl = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblUrl = new System.Windows.Forms.Label();
             this.trayContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,21 +88,21 @@
             this.tbUrl.Size = new System.Drawing.Size(442, 23);
             this.tbUrl.TabIndex = 1;
             // 
-            // label1
+            // lblUrl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "URL:";
+            this.lblUrl.AutoSize = true;
+            this.lblUrl.Location = new System.Drawing.Point(10, 9);
+            this.lblUrl.Name = "lblUrl";
+            this.lblUrl.Size = new System.Drawing.Size(31, 15);
+            this.lblUrl.TabIndex = 3;
+            this.lblUrl.Text = "URL:";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 87);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblUrl);
             this.Controls.Add(this.tbUrl);
             this.Controls.Add(this.btnApply);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -128,6 +128,6 @@
         private ContextMenuStrip trayContextMenu;
         private ToolStripMenuItem itmSettings;
         private ToolStripMenuItem itmExit;
-        private Label label1;
+        private Label lblUrl;
     }
 }

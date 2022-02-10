@@ -4,18 +4,42 @@ namespace WallpaperEx.Forms;
 
 public partial class WallpaperForm : Form
 {
+    public Screen? CurrentScreen { get; init; }
     public string? Wallpaper { get; set; }
-    public Screen? CurrentScreen { get; set; }
 
     private WebView2? _webView;
 
     public WallpaperForm()
     {
         InitializeComponent();
-
-        Load += (_, _) => InitializeWallpaper();
+        InitializeWebView();
     }
-    
+
+    #region Initialization
+
+    private void InitializeWallpaper()
+    {
+        if (string.IsNullOrEmpty(Wallpaper)) return;
+        if (_webView == null || CurrentScreen == null) return;
+        
+        _webView.Source = new(Wallpaper);
+        
+        ClientSize = new (CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
+        Location = CurrentScreen?.Bounds.Location ?? new(0, 0);
+    }
+
+    private void InitializeWebView()
+    {
+        Controls.Add(_webView = new()
+        {
+            Dock = DockStyle.Fill,
+        });
+    }
+
+    #endregion
+
+    #region Exposing Functions
+
     public void ChangeWallpaper(string url)
     {
         Wallpaper = url;
@@ -25,18 +49,14 @@ public partial class WallpaperForm : Form
         _webView.Source = new(Wallpaper);
     }
 
-    private void InitializeWallpaper()
+    #endregion
+
+    #region Events
+
+    private void WrapperForm_Load(object? sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(Wallpaper)) return;
-
-        Controls.Add(_webView = new()
-        {
-            Dock = DockStyle.Fill,
-            Source = new(Wallpaper)
-        });
-
-        
-        ClientSize = new (CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
-        Location = CurrentScreen?.Bounds.Location ?? new(0, 0);
+        InitializeWallpaper();
     }
+
+    #endregion
 }
