@@ -1,4 +1,6 @@
-namespace Wallpaper;
+using WallpaperEx.Forms;
+
+namespace WallpaperEx;
 
 static class Program
 {

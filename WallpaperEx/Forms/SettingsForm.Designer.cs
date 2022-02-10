@@ -1,4 +1,4 @@
-﻿namespace Wallpaper
+﻿namespace WallpaperEx.Forms
 {
     partial class SettingsForm
     {

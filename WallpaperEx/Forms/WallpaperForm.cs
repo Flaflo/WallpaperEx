@@ -1,7 +1,6 @@
 using Microsoft.Web.WebView2.WinForms;
-using Wallpaper.Native;
 
-namespace Wallpaper;
+namespace WallpaperEx.Forms;
 
 public partial class WallpaperForm : Form
 {
