@@ -8,6 +8,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationIcon>Resources/icon.ico</ApplicationIcon>
         <StartupObject>WallpaperEx.Program</StartupObject>
+        <Company>Stunsoft GbR</Company>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
