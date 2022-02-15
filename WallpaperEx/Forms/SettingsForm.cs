@@ -134,6 +134,8 @@ public partial class SettingsForm : Form
     private void SettingsForm_Shown(object? sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(UserConfig.Current.Url)) return;
+
+        tbUrl.Text = UserConfig.Current.Url;
         
         InitializeWallpapers(UserConfig.Current.Url);
         MinimizeToTray();

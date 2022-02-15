@@ -7,10 +7,10 @@ public class UserConfig
 {
     public static UserConfig Current { get; } = LoadFromFile("wpx_config.json");
 
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     [JsonIgnore]
-    private string _path;
+    private string? _path;
     
     public UserConfig()
     {
@@ -36,6 +36,8 @@ public class UserConfig
 
     public void Save()
     {
+        if (_path == null) return;
+        
         File.WriteAllText(_path, JsonSerializer.Serialize(this));
     }
 }
