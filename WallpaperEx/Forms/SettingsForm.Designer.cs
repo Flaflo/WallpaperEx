@@ -114,6 +114,7 @@
             this.Text = "Wallpaper Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Resize += new System.EventHandler(this.SettingsForm_Resize);
+            this.Shown += new System.EventHandler(this.SettingsForm_Shown);
             this.trayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

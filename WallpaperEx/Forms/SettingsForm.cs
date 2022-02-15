@@ -1,4 +1,5 @@
-﻿using WallpaperEx.Native;
+﻿using WallpaperEx.Config;
+using WallpaperEx.Native;
 
 namespace WallpaperEx.Forms;
 
@@ -57,6 +58,9 @@ public partial class SettingsForm : Form
     private void btnApply_Click(object sender, EventArgs e)
     {
         InitializeWallpapers(tbUrl.Text);
+     
+        UserConfig.Current.Url = tbUrl.Text;
+        UserConfig.Current.Save();
     }
 
     private void InitializeWallpapers(string url)
@@ -84,7 +88,7 @@ public partial class SettingsForm : Form
 
     private void MinimizeToTray()
     {
-        trayIcon.ShowBalloonTip(1000, "Wallpaper", "The App has been hidden into the tray menu.", ToolTipIcon.Info);
+        trayIcon.ShowBalloonTip(1000, "WallpaperEx", "The App has been hidden into the tray menu.", ToolTipIcon.Info);
         Hide();
     }
 
@@ -125,5 +129,13 @@ public partial class SettingsForm : Form
     {
         Show();
         WindowState = FormWindowState.Normal;
+    }
+
+    private void SettingsForm_Shown(object? sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(UserConfig.Current.Url)) return;
+        
+        InitializeWallpapers(UserConfig.Current.Url);
+        MinimizeToTray();
     }
 }
