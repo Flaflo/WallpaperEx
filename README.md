@@ -9,3 +9,16 @@ Extending Windows Wallpapers with HTML
 | Windows 10/11    | -                     | -            |
 | .NET 6 Runtime   | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.102-windows-x64-installer)              | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.102-windows-x86-installer)     |
 | WebView2 Runtime | [Download](https://go.microsoft.com/fwlink/p/?LinkId=2124703)              | [Download](https://go.microsoft.com/fwlink/p/?LinkId=2124703)     |
+
+# Download
+You can download the latest version of WallpaperEx on the Release page  
+https://github.com/Flaflo/WallpaperEx/releases
+
+# Enable WallpaperEx on Windows Startup
+Currently there is no automatic option for this, but you can do the following:
+1. Create a shortcut of ``WallpaperEx.exe``
+2. Press ``WIN + R`` on your keyboard
+3. Type ``shell:startup`` and press enter
+4. Move the created shortcut into the folder that just opened
+
+*To disable it just redo step 2 and 3 and delete the shortcut to ``WallpaperEx.exe``*
