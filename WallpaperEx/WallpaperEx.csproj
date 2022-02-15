@@ -9,8 +9,9 @@
         <ApplicationIcon>Resources/icon.ico</ApplicationIcon>
         <StartupObject>WallpaperEx.Program</StartupObject>
         <Company>Stunsoft GbR</Company>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
-        <FileVersion>0.1.0.0</FileVersion>
+        <Copyright>Copyright © 2022 Stunsoft GbR</Copyright>
+        <AssemblyVersion>0.1.0.1</AssemblyVersion>
+        <FileVersion>0.1.0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
