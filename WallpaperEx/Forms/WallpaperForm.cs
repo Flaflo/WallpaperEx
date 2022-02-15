@@ -23,9 +23,16 @@ public partial class WallpaperForm : Form
         if (_webView == null || CurrentScreen == null) return;
         
         _webView.Source = new(Wallpaper);
+
+        ClientSize = new(CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
         
-        ClientSize = new (CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
-        Location = CurrentScreen?.Bounds.Location ?? new(0, 0);
+        var location = CurrentScreen.Bounds.Location;
+        if (location.X < 0 || location.Y < 0)
+        {
+            location = Screen.PrimaryScreen.Bounds.Location - (Size) location;
+        }
+        
+        Location = location;
     }
 
     private void InitializeWebView()
