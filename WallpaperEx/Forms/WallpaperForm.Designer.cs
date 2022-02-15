@@ -32,7 +32,7 @@ partial class WallpaperForm
         this._components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.Text = string.Empty;
-        this.Load += this.WrapperForm_Load;
+        this.Shown += this.WrapperForm_Shown;
         this.FormBorderStyle = FormBorderStyle.None;
     }
 

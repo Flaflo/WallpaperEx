@@ -53,10 +53,11 @@ public partial class WallpaperForm : Form
 
     #region Events
 
-    private void WrapperForm_Load(object? sender, EventArgs e)
+    private void WrapperForm_Shown(object? sender, EventArgs e)
     {
         InitializeWallpaper();
     }
-
+    
     #endregion
+  
 }
