@@ -1,4 +1,5 @@
 using Microsoft.Web.WebView2.WinForms;
+using WallpaperEx.Native;
 
 namespace WallpaperEx.Forms;
 
@@ -11,6 +12,8 @@ public partial class WallpaperForm : Form
 
     public WallpaperForm()
     {
+        StartPosition = FormStartPosition.Manual;
+
         InitializeComponent();
         InitializeWebView();
     }
@@ -24,15 +27,34 @@ public partial class WallpaperForm : Form
         
         _webView.Source = new(Wallpaper);
 
-        ClientSize = new(CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
-        
-        var location = CurrentScreen.Bounds.Location;
-        if (location.X < 0 || location.Y < 0)
+        var primary = Screen.PrimaryScreen!;
+        ClientSize = new (CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
+
+        var x = primary.Bounds.Right + CurrentScreen.Bounds.Left;
+        var y = 0;
+        if (CurrentScreen.Bounds.Width > CurrentScreen.Bounds.Height)
         {
-            location = Screen.PrimaryScreen.Bounds.Location - (Size) location;
+            // get max height of all screens
+            var totalVerticalHeight = Screen.AllScreens.Where(it => it.Bounds.Width < it.Bounds.Height).Max(s => s.Bounds.Width);
+
+            y = 0;
         }
-        
-        Location = location;
+
+        Location = new Point(x, y);
+
+        var screenNum = Screen.AllScreens.ToList().IndexOf(CurrentScreen);
+        var lbl = new Label
+        {
+            Text = "Y " + Location.Y,
+            ForeColor = CurrentScreen == Screen.PrimaryScreen ? Color.Chartreuse :  Color.White,
+            BackColor = Color.Black,
+            Font = new Font("Segoe UI", 40),
+            Visible = true,
+            AutoSize = true,
+            Location = new Point(Width / 2, Height / 2),
+        };
+        Controls.Add(lbl);
+        lbl.BringToFront();
     }
 
     private void InitializeWebView()
