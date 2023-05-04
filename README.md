@@ -7,7 +7,7 @@ Extending Windows Wallpapers with HTML
 | Name             | Download x64          | Download x86 |
 |------------------|-----------------------|--------------|
 | Windows 10/11    | -                     | -            |
-| .NET 6 Runtime   | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.102-windows-x64-installer)              | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.102-windows-x86-installer)     |
+| .NET 7 Runtime   | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-7.0.5-windows-x64-installer)              | [Download](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-7.0.5-windows-x86-installer)     |
 | WebView2 Runtime | [Download](https://go.microsoft.com/fwlink/p/?LinkId=2124703)              | [Download](https://go.microsoft.com/fwlink/p/?LinkId=2124703)     |
 
 # Download
