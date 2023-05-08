@@ -1,5 +1,4 @@
 using Microsoft.Web.WebView2.WinForms;
-using WallpaperEx.Native;
 
 namespace WallpaperEx.Forms;
 
@@ -22,47 +21,36 @@ public partial class WallpaperForm : Form
 
     private void InitializeWallpaper()
     {
+        // We cannot initialize the wallpaper without a wallpaper, a screen or a webview
         if (string.IsNullOrEmpty(Wallpaper)) return;
         if (_webView == null || CurrentScreen == null) return;
         
+        // Set wallpaper webview source
         _webView.Source = new(Wallpaper);
+        
+        // Calculate window bounds for the current screen
+        var currentScreenBounds = CurrentScreen.Bounds;
+        
+        // Calculate offset between working area and virtual screen
+        var offsetX = SystemInformation.WorkingArea.Left - SystemInformation.VirtualScreen.Left;
+        var offsetY = SystemInformation.WorkingArea.Top - SystemInformation.VirtualScreen.Top;
 
-        var primary = Screen.PrimaryScreen!;
-        ClientSize = new (CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
+        // Offset current screen bounds with working area
+        var x = currentScreenBounds.Left + offsetX;
+        var y = currentScreenBounds.Top + offsetY;
 
-        var x = primary.Bounds.Right + CurrentScreen.Bounds.Left;
-        var y = 0;
-        if (CurrentScreen.Bounds.Width > CurrentScreen.Bounds.Height)
-        {
-            // get max height of all screens
-            var totalVerticalHeight = Screen.AllScreens.Where(it => it.Bounds.Width < it.Bounds.Height).Max(s => s.Bounds.Width);
-
-            y = 0;
-        }
-
-        Location = new Point(x, y);
-
-        var screenNum = Screen.AllScreens.ToList().IndexOf(CurrentScreen);
-        var lbl = new Label
-        {
-            Text = "Y " + Location.Y,
-            ForeColor = CurrentScreen == Screen.PrimaryScreen ? Color.Chartreuse :  Color.White,
-            BackColor = Color.Black,
-            Font = new Font("Segoe UI", 40),
-            Visible = true,
-            AutoSize = true,
-            Location = new Point(Width / 2, Height / 2),
-        };
-        Controls.Add(lbl);
-        lbl.BringToFront();
+        // Set the bounds of the form to the bounds of the current screen
+        Bounds = currentScreenBounds with { X = x, Y = y };
     }
 
     private void InitializeWebView()
     {
-        Controls.Add(_webView = new()
+        if (_webView == null)
         {
-            Dock = DockStyle.Fill,
-        });
+            Controls.Add(_webView = new() { Dock = DockStyle.Fill });
+        }
+
+        _webView.BringToFront();
     }
 
     #endregion
@@ -71,11 +59,9 @@ public partial class WallpaperForm : Form
 
     public void ChangeWallpaper(string url)
     {
-        Wallpaper = url;
-
         if (_webView == null) return;
-
-        _webView.Source = new(Wallpaper);
+        
+        _webView.Source = new(Wallpaper = url);
     }
 
     #endregion
