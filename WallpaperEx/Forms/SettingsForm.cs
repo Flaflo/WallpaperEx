@@ -78,7 +78,6 @@ public partial class SettingsForm : Form
 
                 // Attach Form to Wallpaper
                 User32.SetParent(it.Handle, _drawingWorker);
-                it.Dock = DockStyle.Fill;
             });
         }
         else
