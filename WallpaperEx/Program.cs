@@ -1,4 +1,6 @@
+using System.Net.Mime;
 using WallpaperEx.Forms;
+using WallpaperEx.Native;
 
 namespace WallpaperEx;
 
@@ -10,9 +12,9 @@ internal static class Program
     [STAThread]
     private static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
-        ApplicationConfiguration.Initialize();
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         Application.Run(new SettingsForm());
     }
 }

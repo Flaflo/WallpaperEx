@@ -11,6 +11,8 @@ public partial class WallpaperForm : Form
 
     public WallpaperForm()
     {
+        StartPosition = FormStartPosition.Manual;
+
         InitializeComponent();
         InitializeWebView();
     }
@@ -19,28 +21,36 @@ public partial class WallpaperForm : Form
 
     private void InitializeWallpaper()
     {
+        // We cannot initialize the wallpaper without a wallpaper, a screen or a webview
         if (string.IsNullOrEmpty(Wallpaper)) return;
         if (_webView == null || CurrentScreen == null) return;
         
+        // Set wallpaper webview source
         _webView.Source = new(Wallpaper);
+        
+        // Calculate window bounds for the current screen
+        var currentScreenBounds = CurrentScreen.Bounds;
+        
+        // Calculate offset between working area and virtual screen
+        var offsetX = SystemInformation.WorkingArea.Left - SystemInformation.VirtualScreen.Left;
+        var offsetY = SystemInformation.WorkingArea.Top - SystemInformation.VirtualScreen.Top;
 
-        ClientSize = new(CurrentScreen.Bounds.Width, CurrentScreen.Bounds.Height);
-        
-        var location = CurrentScreen.Bounds.Location;
-        if (location.X < 0 || location.Y < 0)
-        {
-            location = Screen.PrimaryScreen.Bounds.Location - (Size) location;
-        }
-        
-        Location = location;
+        // Offset current screen bounds with working area
+        var x = currentScreenBounds.Left + offsetX;
+        var y = currentScreenBounds.Top + offsetY;
+
+        // Set the bounds of the form to the bounds of the current screen
+        Bounds = currentScreenBounds with { X = x, Y = y };
     }
 
     private void InitializeWebView()
     {
-        Controls.Add(_webView = new()
+        if (_webView == null)
         {
-            Dock = DockStyle.Fill,
-        });
+            Controls.Add(_webView = new() { Dock = DockStyle.Fill });
+        }
+
+        _webView.BringToFront();
     }
 
     #endregion
@@ -49,11 +59,9 @@ public partial class WallpaperForm : Form
 
     public void ChangeWallpaper(string url)
     {
-        Wallpaper = url;
-
         if (_webView == null) return;
-
-        _webView.Source = new(Wallpaper);
+        
+        _webView.Source = new(Wallpaper = url);
     }
 
     #endregion
