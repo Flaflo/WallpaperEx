@@ -1,11 +1,12 @@
-﻿using System.Text.Json;
+﻿using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace WallpaperEx.Config;
 
 public class UserConfig
 {
-    public static UserConfig Current { get; } = LoadFromFile("wpx_config.json");
+    public static UserConfig Current { get; } = LoadFromFile(Path.Combine(Assembly.GetExecutingAssembly().Location, "wpx_config.json"));
 
     public string? Url { get; set; }
 
